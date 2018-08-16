@@ -9,11 +9,6 @@ app = Flask(__name__)
 def generate_uuid():
     return str(uuid4())
 
-# def parsed_cookie():
-#     for item in request.headers.get('Cookie').split(';'):
-#         name, _, value = item.partition('=')
-#         yield name, value
-
 
 @app.route('/')
 def index():
