@@ -32,4 +32,4 @@ def after_cookie_was_set():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=os.getenv('PORT') or 31337, debug=True)
+    app.run(host='0.0.0.0', port=os.getenv('PORT') or 31337)
