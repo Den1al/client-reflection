@@ -23,12 +23,15 @@ def index():
 
 @app.route('/after-cookie-was-set')
 def after_cookie_was_set():
-    return render_template(
+    resp = make_response(render_template(
         'index.html',
         user_agent=request.headers.get('User-Agent'),
         ip=request.remote_addr,
         headers=dict(request.headers)
-    )
+    ))
+
+    resp.set_cookie('cookie2', generate_uuid())
+    return resp
 
 
 if __name__ == "__main__":
