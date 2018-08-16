@@ -8,6 +8,7 @@ def index():
     return render_template(
         'index.html',
         user_agent=request.headers.get('User-Agent'),
+        cookie=request.headers.get('Cookie'),
         ip=request.remote_addr,
         headers=dict(request.headers)
     )
