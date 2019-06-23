@@ -22,15 +22,21 @@ In order to setup a ceritifcate for the app simply run let's encrypt:
 ```bash
 $ sudo apt-get update
 $ sudo apt-get install letsencrypt
-$ sudo letsencrypt certonly -a standalone
+$ sudo letsencrypt certonly -a standalone --register-unsafely-without-email
 ```
 
-Then generate the certs:
+## Configure `run.sh` File
+This app has a convenient approach to run the web application - using gunicorn. Sometimes with advances flags, `gunicorn` can be somewhat cumbersome, so I created a `run.sh` file that wraps all the desired functionalities from the tool, into a single runnable file. Create a new `run.sh` file by running the following command:
 ```bash
-$ sudo letsencrypt certonly -a standalone
+$ cp run-template.sh run.sh
 ```
 
-Now the certs will reside in `/etc/letsencrypt/live/<DOMAIN>/`. Let's run gunicorn with the new certs:
+Now, fill in the relevant information, such as youre domain name, desired log file etc. 
+To run the app, first make the `run.sh` file executeable, and run it:
+
 ```bash
-gunicorn server:app --workers 2 --daemon --bind 0.0.0.0:443 --keyfile /etc/letsencrypt/live/<DOMAIN>/privkey.pem --certfile /etc/letsencrypt/live/<DOMAIN>/cert.pem --ca-certs /etc/letsencrypt/live/<DOMAIN>/chain.pem --access-logfile /root/client-reflection/access.log
+$ chmod +x run.sh
+$ sudo ./run.sh
 ```
+
+
